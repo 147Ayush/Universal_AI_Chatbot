@@ -1,0 +1,24 @@
+# --- Web framework ---
+fastapi
+uvicorn[standard]
+python-multipart
+
+# --- Validation / settings ---
+pydantic>=2
+pydantic-settings
+
+# --- LangChain / LangGraph ---
+langchain
+langgraph
+langgraph-checkpoint
+
+# --- LLM providers ---
+langchain-openai
+langchain-groq
+langchain-google-genai
+
+# --- Testing ---
+pytest
+pytest-asyncio
+httpx
+pytest-mock
