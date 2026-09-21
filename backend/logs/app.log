@@ -1,3 +1,6 @@
 2026-09-17 17:10:29 | INFO     | __main__ | App environment: development
 2026-09-17 17:10:29 | INFO     | __main__ | OpenAI key (masked): <not set>
 2026-09-17 17:10:29 | ERROR    | __main__ | Caught expected exception: Example: no provider configured | details={'provider': 'openai'}
+2026-09-17 17:15:46 | INFO     | __main__ | App environment: development
+2026-09-17 17:15:46 | INFO     | __main__ | OpenAI key (masked): ****************************************************************************************************************************************************************ImAA
+2026-09-17 17:15:46 | ERROR    | __main__ | Caught expected exception: Example: no provider configured | details={'provider': 'openai'}
