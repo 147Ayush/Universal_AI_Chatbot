@@ -16,6 +16,7 @@ import logging
 
 from fastapi import FastAPI
 
+from app.core.exceptions import ProviderConfigurationError
 from app.config.settings import get_settings
 from app.core.constants import APP_NAME, APP_VERSION
 from app.core.logging_config import setup_logging
@@ -50,3 +51,5 @@ async def on_startup():
 @app.on_event("shutdown")
 async def on_shutdown():
     logger.info("%s shutting down", APP_NAME)
+
+
