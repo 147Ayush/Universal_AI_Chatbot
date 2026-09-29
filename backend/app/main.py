@@ -16,12 +16,11 @@ import logging
 
 from fastapi import FastAPI
 
-from app.core.exceptions import ProviderConfigurationError
 from app.config.settings import get_settings
 from app.core.constants import APP_NAME, APP_VERSION
 from app.core.logging_config import setup_logging
 from app.core.exceptions import register_exception_handlers
-from app.api import health
+from app.api import health, chat
 
 # --- Startup: load settings, configure logging BEFORE anything else runs ---
 settings = get_settings()
@@ -41,6 +40,7 @@ register_exception_handlers(app)
 
 # --- Routers ---
 app.include_router(health.router)
+app.include_router(chat.router)
 
 
 @app.on_event("startup")
@@ -51,5 +51,3 @@ async def on_startup():
 @app.on_event("shutdown")
 async def on_shutdown():
     logger.info("%s shutting down", APP_NAME)
-
-
