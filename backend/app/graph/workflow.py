@@ -14,10 +14,12 @@ from langgraph.graph import StateGraph, START, END
 
 from app.graph.state import GraphState
 from app.graph.nodes import call_llm
+from app.memory.short_term import get_checkpointer
 
 
 def build_workflow():
-    """Constructs the graph: START -> call_llm -> END."""
+    """Constructs the graph: START -> call_llm -> END, with short-term
+    memory enabled via a checkpointer."""
     builder = StateGraph(GraphState)
 
     builder.add_node("call_llm", call_llm)
@@ -25,7 +27,7 @@ def build_workflow():
     builder.add_edge(START, "call_llm")
     builder.add_edge("call_llm", END)
 
-    return builder.compile()
+    return builder.compile(checkpointer=get_checkpointer())
 
 
 @lru_cache

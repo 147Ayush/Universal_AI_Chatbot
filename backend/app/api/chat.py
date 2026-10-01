@@ -35,14 +35,15 @@ def send_message(request: ChatRequest) -> ChatResponse:
 async def stream_message(request: ChatRequest):
     """Streams the assistant's reply as Server-Sent Events (SSE).
 
-    Each event is a JSON object: {"content": "<token>"}.
-    The stream ends with a final event: {"done": true}.
+    First event: {"thread_id": "..."}  -- the thread to reuse for follow-ups
+    Then:        {"content": "<token>"} for each chunk as it arrives
+    Finally:     {"done": true}
     """
 
     async def event_generator():
         try:
-            async for chunk in stream_chat_message(request):
-                yield f"data: {json.dumps({'content': chunk})}\n\n"
+            async for event in stream_chat_message(request):
+                yield f"data: {json.dumps(event)}\n\n"
         except ChatbotException as e:
             # Streaming responses can't use the global exception handlers —
             # headers are already sent by the time an error happens mid-stream,
