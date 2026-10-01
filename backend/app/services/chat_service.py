@@ -1,5 +1,3 @@
-# backend/app/services/chat_service.py
-
 """
 Chat service — the business logic layer between the API and the graph.
 
@@ -14,6 +12,7 @@ it only ever calls functions in this file.
 """
 
 import logging
+from typing import AsyncGenerator
 
 from langchain_core.messages import HumanMessage
 
@@ -75,3 +74,33 @@ def handle_chat_message(request: ChatRequest) -> ChatResponse:
         model_name=model_name,
         thread_id=request.thread_id,
     )
+
+
+async def stream_chat_message(request: ChatRequest) -> AsyncGenerator[str, None]:
+    """Streams the assistant's reply token-by-token.
+
+    Yields plain text chunks as they arrive from the LLM, via LangGraph's
+    stream_mode="messages" — which gives us (message_chunk, metadata)
+    tuples for every token produced by any LLM call in the graph.
+    """
+    model_name = _resolve_model_name(request.provider, request.model_name)
+
+    logger.info(
+        "stream_chat_message: provider=%s model=%s thread_id=%s",
+        request.provider, model_name, request.thread_id,
+    )
+
+    workflow = get_workflow()
+
+    initial_state = {
+        "messages": [HumanMessage(content=request.message)],
+        "provider": request.provider,
+        "model_name": model_name,
+    }
+
+    async for message_chunk, _metadata in workflow.astream(
+        initial_state, stream_mode="messages"
+    ):
+        text = extract_text(message_chunk.content)
+        if text:
+            yield text
