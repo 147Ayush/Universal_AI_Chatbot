@@ -72,3 +72,6 @@
 2026-09-29 15:56:07 | ERROR    | app.core.exceptions | ChatbotException: Unknown provider: 'bogus' | path=/chat | details={'supported_providers': ['openai', 'groq', 'gemini']}
 2026-09-29 15:58:15 | INFO     | app.main | Universal AI Chatbot shutting down
 2026-10-01 16:59:40 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-01 16:59:55 | INFO     | app.services.chat_service | stream_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=None
+2026-10-01 16:59:55 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-01 17:04:40 | INFO     | app.main | Universal AI Chatbot shutting down
