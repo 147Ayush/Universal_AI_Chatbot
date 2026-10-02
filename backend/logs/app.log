@@ -81,3 +81,16 @@
 2026-10-01 17:22:20 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
 2026-10-01 17:22:22 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=fc8c917a-3c5b-4265-86e5-84b1eb4883fc
 2026-10-01 17:22:22 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:52:25 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:52:27 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:52:30 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:52:31 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:55:22 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:55:24 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:55:27 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:55:28 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:56:02 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:56:04 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:56:06 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:56:08 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-02 23:56:10 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b

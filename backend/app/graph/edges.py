@@ -3,11 +3,12 @@
 """
 Graph edges — conditional routing logic.
 
-Module 4 has a single straight-line graph (input -> LLM -> output),
-so there's no branching to define yet. This file exists now so the
-project structure is in place; routing functions (e.g. "should the
-agent call a tool or answer directly?") will be added here starting
-in Module 8 (Tools) and expanded in Module 10 (Agentic Workflow).
+tools_condition (from langgraph.prebuilt) inspects the last message:
+if it contains tool_calls, route to the "tools" node; otherwise, end.
+We re-export it here so the rest of the project imports routing
+logic from this file, not scattered prebuilt imports.
 """
 
-# Intentionally empty for now.
+from langgraph.prebuilt import tools_condition
+
+route_after_llm = tools_condition

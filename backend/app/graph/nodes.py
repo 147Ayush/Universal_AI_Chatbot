@@ -4,21 +4,26 @@
 Graph nodes.
 
 A node is just a function: (state) -> partial state update.
-Keep nodes focused on ONE responsibility each — this one only calls
-the LLM and returns its response as a new message.
+Keep nodes focused on ONE responsibility each — this one calls the
+LLM (with tools bound) and returns its response as a new message.
 """
 
 import logging
 
 from app.graph.state import GraphState
 from app.llm.factory import get_llm
+from app.tools import ALL_TOOLS
 
 logger = logging.getLogger(__name__)
 
 
 def call_llm(state: GraphState) -> dict:
-    """Node: sends the current message history to the configured LLM
-    and returns its reply.
+    """Node: sends the current message history to the configured LLM,
+    with tools bound, and returns its reply.
+
+    The LLM may respond with a tool call instead of (or before) a text
+    answer — if it does, LangGraph routes to the "tools" node next
+    (see graph/edges.py and graph/workflow.py).
 
     LangGraph merges this return value into the graph state — since
     `messages` uses the `add_messages` reducer, returning one new
@@ -30,6 +35,8 @@ def call_llm(state: GraphState) -> dict:
     logger.info("call_llm node: provider=%s model=%s", provider, model_name)
 
     llm = get_llm(provider=provider, model_name=model_name)
-    response = llm.invoke(state["messages"])
+    llm_with_tools = llm.bind_tools(ALL_TOOLS)
+
+    response = llm_with_tools.invoke(state["messages"])
 
     return {"messages": [response]}
