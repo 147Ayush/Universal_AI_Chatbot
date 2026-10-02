@@ -12,7 +12,7 @@ import logging
 
 from app.graph.state import GraphState
 from app.llm.factory import get_llm
-from app.tools import ALL_TOOLS
+from app.mcp.tool_manager import get_all_tools
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ def call_llm(state: GraphState) -> dict:
     logger.info("call_llm node: provider=%s model=%s", provider, model_name)
 
     llm = get_llm(provider=provider, model_name=model_name)
-    llm_with_tools = llm.bind_tools(ALL_TOOLS)
+    llm_with_tools = llm.bind_tools(get_all_tools())
 
     response = llm_with_tools.invoke(state["messages"])
 

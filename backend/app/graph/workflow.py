@@ -17,7 +17,7 @@ from app.graph.state import GraphState
 from app.graph.nodes import call_llm
 from app.graph.edges import route_after_llm
 from app.memory.short_term import get_checkpointer
-from app.tools import ALL_TOOLS
+from app.mcp.tool_manager import get_all_tools
 
 
 def build_workflow():
@@ -28,11 +28,14 @@ def build_workflow():
 
     Short-term memory is enabled via a checkpointer, so conversation
     history persists across calls that share the same thread_id.
+
+    Tools include both local tools (calculator, weather, search) and
+    any MCP tools loaded at app startup — see app/mcp/tool_manager.py.
     """
     builder = StateGraph(GraphState)
 
     builder.add_node("call_llm", call_llm)
-    builder.add_node("tools", ToolNode(ALL_TOOLS))
+    builder.add_node("tools", ToolNode(get_all_tools()))
 
     builder.add_edge(START, "call_llm")
     builder.add_conditional_edges("call_llm", route_after_llm)

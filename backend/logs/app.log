@@ -94,3 +94,6 @@
 2026-10-02 23:56:06 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
 2026-10-02 23:56:08 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
 2026-10-02 23:56:10 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 00:10:08 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-03 00:10:08 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 00:10:10 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
