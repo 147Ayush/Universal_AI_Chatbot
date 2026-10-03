@@ -97,3 +97,10 @@
 2026-10-03 00:10:08 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
 2026-10-03 00:10:08 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
 2026-10-03 00:10:10 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 16:59:48 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 16:59:53 | INFO     | app.llm.factory | Trying provider=openai model=this-model-does-not-exist
+2026-10-03 16:59:55 | INFO     | httpx2 | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 404 Not Found"
+2026-10-03 16:59:55 | WARNING  | app.utils.retry | Non-retryable error, giving up immediately: Error code: 404 - {'error': {'message': 'The model `this-model-does-not-exist` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-10-03 16:59:55 | ERROR    | app.llm.factory | Provider 'openai' failed after retries: Error code: 404 - {'error': {'message': 'The model `this-model-does-not-exist` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
+2026-10-03 16:59:56 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 16:59:56 | WARNING  | app.llm.factory | Primary provider 'openai' failed — succeeded via fallback provider 'groq'

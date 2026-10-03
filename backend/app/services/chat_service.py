@@ -17,11 +17,10 @@ from typing import AsyncGenerator
 
 from langchain_core.messages import HumanMessage
 
-from app.config.settings import get_settings
 from app.graph.workflow import get_workflow
 from app.llm.base import extract_text
+from app.llm.factory import get_default_model
 from app.models.chat import ChatRequest, ChatResponse
-from app.core.exceptions import ProviderConfigurationError
 
 logger = logging.getLogger(__name__)
 
@@ -31,19 +30,7 @@ def _resolve_model_name(provider: str, requested_model: str | None) -> str:
     otherwise that provider's configured default."""
     if requested_model:
         return requested_model
-
-    settings = get_settings()
-    defaults = {
-        "openai": settings.openai_default_model,
-        "groq": settings.groq_default_model,
-        "gemini": settings.gemini_default_model,
-    }
-    if provider not in defaults:
-        raise ProviderConfigurationError(
-            f"Unknown provider: '{provider}'",
-            details={"supported_providers": list(defaults.keys())},
-        )
-    return defaults[provider]
+    return get_default_model(provider)
 
 
 def handle_chat_message(request: ChatRequest) -> ChatResponse:
