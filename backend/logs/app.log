@@ -104,3 +104,76 @@
 2026-10-03 16:59:55 | ERROR    | app.llm.factory | Provider 'openai' failed after retries: Error code: 404 - {'error': {'message': 'The model `this-model-does-not-exist` does not exist or you do not have access to it.', 'type': 'invalid_request_error', 'param': None, 'code': 'model_not_found'}}
 2026-10-03 16:59:56 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
 2026-10-03 16:59:56 | WARNING  | app.llm.factory | Primary provider 'openai' failed — succeeded via fallback provider 'groq'
+2026-10-03 17:12:54 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=3a44228a-2b2a-48c5-9c4a-52489d0bc167
+2026-10-03 17:12:54 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:12:55 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:12:56 | INFO     | app.graph.nodes | Tool call(s) approved by human
+2026-10-03 17:12:58 | INFO     | primp | response: https://grokipedia.com/api/typeahead?query=current+version+of+LangGraph&limit=1 200
+2026-10-03 17:12:59 | INFO     | primp | response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=current%20version%20of%20LangGraph 200
+2026-10-03 17:13:00 | INFO     | primp | response: https://www.mojeek.com/search?q=current+version+of+LangGraph 200
+2026-10-03 17:13:01 | INFO     | primp | response: https://html.duckduckgo.com/html/ 200
+2026-10-03 17:13:01 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:02 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:02 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=d013b6b4-862d-478c-b71c-72701d6ce7e9
+2026-10-03 17:13:02 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:03 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:04 | INFO     | app.graph.nodes | Tool call(s) rejected by human: Not needed right now
+2026-10-03 17:13:04 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:04 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:06 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=c9595d6d-31e3-49ad-bc29-fc4b47b7ba43
+2026-10-03 17:13:06 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:06 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:07 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:13:08 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:14:53 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=b4a8ed38-6fc0-4706-857e-a0b18dbbdcbe
+2026-10-03 17:14:53 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:14:54 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:14:55 | INFO     | app.graph.nodes | Tool call(s) approved by human
+2026-10-03 17:14:55 | INFO     | primp | response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=current%20version%20of%20LangGraph 200
+2026-10-03 17:14:56 | INFO     | primp | response: https://grokipedia.com/api/typeahead?query=current+version+of+LangGraph&limit=1 200
+2026-10-03 17:14:58 | INFO     | primp | response: https://www.google.com/wml/search?q=current+version+of+LangGraph&sca_esv=1&filter=1&start=0&hl=en-US&lr=lang_en&cr=countryUS 403
+2026-10-03 17:14:59 | INFO     | primp | response: https://search.brave.com/search?q=current+version+of+LangGraph&source=web 429
+2026-10-03 17:15:00 | INFO     | primp | response: https://html.duckduckgo.com/html/ 200
+2026-10-03 17:15:00 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:01 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:02 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=1f41c1c2-e303-48c5-8ac9-6d2d31789988
+2026-10-03 17:15:02 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:02 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:03 | INFO     | app.graph.nodes | Tool call(s) rejected by human: Not needed right now
+2026-10-03 17:15:03 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:04 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:05 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=07da0895-a521-486f-9ae9-f57dd1ae01af
+2026-10-03 17:15:05 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:05 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:06 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:07 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:27 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=3a0bd4b6-0b21-4eca-9d49-6a6dcc796d0f
+2026-10-03 17:15:27 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:28 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:29 | INFO     | app.graph.nodes | Tool call(s) approved by human
+2026-10-03 17:15:29 | INFO     | primp | response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=current%20version%20of%20LangGraph 200
+2026-10-03 17:15:29 | INFO     | primp | response: https://grokipedia.com/api/typeahead?query=current+version+of+LangGraph&limit=1 200
+2026-10-03 17:15:31 | INFO     | primp | response: https://search.yahoo.com/search;_ylt=byfp6OOuTo-XLi4oSFiq5S12;_ylu=L_yUJ_R74KqQLYJ8d2WkpYsk_x4i-IzRDRMSiygLxkRXQXI?p=current+version+of+LangGraph 200
+2026-10-03 17:15:32 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:32 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:33 | INFO     | app.graph.nodes | Tool call(s) approved by human
+2026-10-03 17:15:33 | INFO     | primp | response: https://grokipedia.com/api/typeahead?query=LangGraph+latest+version+2026&limit=1 200
+2026-10-03 17:15:33 | INFO     | primp | response: https://en.wikipedia.org/w/api.php?action=opensearch&profile=fuzzy&limit=1&search=LangGraph%20latest%20version%202026 200
+2026-10-03 17:15:34 | INFO     | primp | response: https://www.google.com/wml/search?q=LangGraph+latest+version+2026&sca_esv=1&filter=1&start=0&hl=en-US&lr=lang_en&cr=countryUS 403
+2026-10-03 17:15:35 | INFO     | primp | response: https://www.startpage.com/ 200
+2026-10-03 17:15:35 | INFO     | primp | response: https://www.startpage.com/sp/search 200
+2026-10-03 17:15:35 | INFO     | primp | response: https://search.brave.com/search?q=LangGraph+latest+version+2026&source=web 429
+2026-10-03 17:15:36 | INFO     | primp | response: https://search.yahoo.com/search;_ylt=2tZ0PoEBsAWy8h8shm-rk_9d;_ylu=XhVbBi7K2V0wQ0ed5sThLJ8mPppYW-t25AGmZx24sros43c?p=LangGraph+latest+version+2026 200
+2026-10-03 17:15:37 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:37 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:38 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=e4c26f70-7a45-434d-b7ac-7b085a88a24f
+2026-10-03 17:15:38 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:39 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:39 | INFO     | app.graph.nodes | Tool call(s) rejected by human: Not needed right now
+2026-10-03 17:15:39 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:40 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:41 | INFO     | app.services.chat_service | handle_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=535cf121-f224-4a1d-9fd1-3e6b3cf879bf
+2026-10-03 17:15:41 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:42 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:43 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:15:44 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b

@@ -25,7 +25,7 @@ class ChatRequest(BaseModel):
     )
     thread_id: str | None = Field(
         default=None,
-        description="Conversation thread ID (used for memory in Module 7). Optional for now.",
+        description="Conversation thread ID (used for memory). Optional for now.",
     )
 
 
@@ -34,3 +34,17 @@ class ChatResponse(BaseModel):
     provider: str
     model_name: str
     thread_id: str | None = None
+    requires_approval: bool = Field(
+        default=False,
+        description="True if the conversation is paused waiting on a human approval decision",
+    )
+    approval_request: dict | None = Field(
+        default=None,
+        description="When requires_approval is True, the pending tool call(s) needing review",
+    )
+
+
+class ApprovalRequest(BaseModel):
+    thread_id: str = Field(..., description="The paused conversation's thread ID")
+    approved: bool = Field(..., description="Whether the human approved the pending tool call(s)")
+    reason: str | None = Field(default=None, description="Optional reason, especially for rejections")

@@ -18,3 +18,9 @@ class Environment:
     DEV = "development"
     STAGING = "staging"
     PROD = "production"
+
+
+# Tool names that pause for human approval before running.
+# Everything else (calculator, weather) runs automatically — low risk,
+# read-only, no real-world side effects.
+TOOLS_REQUIRING_APPROVAL = {"web_search", "mcp_web_search"}

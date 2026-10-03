@@ -3,12 +3,25 @@
 """
 Graph edges — conditional routing logic.
 
-tools_condition (from langgraph.prebuilt) inspects the last message:
-if it contains tool_calls, route to the "tools" node; otherwise, end.
-We re-export it here so the rest of the project imports routing
-logic from this file, not scattered prebuilt imports.
+route_after_llm decides what happens after the LLM responds:
+- no tool calls -> END (just answer normally)
+- tool calls, all low-risk -> "tools" (run immediately)
+- tool calls including a risky one -> "human_approval" (pause for review)
 """
 
-from langgraph.prebuilt import tools_condition
+from langgraph.graph import END
 
-route_after_llm = tools_condition
+from app.core.constants import TOOLS_REQUIRING_APPROVAL
+
+
+def route_after_llm(state):
+    last_message = state["messages"][-1]
+    tool_calls = getattr(last_message, "tool_calls", None) or []
+
+    if not tool_calls:
+        return END
+
+    if any(tc["name"] in TOOLS_REQUIRING_APPROVAL for tc in tool_calls):
+        return "human_approval"
+
+    return "tools"
