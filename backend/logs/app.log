@@ -177,3 +177,5 @@
 2026-10-03 17:15:42 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
 2026-10-03 17:15:43 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
 2026-10-03 17:15:44 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-03 17:22:29 | INFO     | app.services.feedback_service | Feedback recorded: id=dcd22630-b977-4ee7-ae6f-f0b98ad466a1 thread_id=test-thread-123 rating=up
+2026-10-03 17:22:29 | INFO     | app.services.feedback_service | Feedback recorded: id=5215e8f6-556b-4d31-8e0f-ee603c8f66af thread_id=test-thread-123 rating=down
