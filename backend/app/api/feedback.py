@@ -13,12 +13,12 @@ router = APIRouter(prefix="/feedback", tags=["feedback"])
 
 
 @router.post("", response_model=FeedbackResponse)
-def send_feedback(request: FeedbackRequest) -> FeedbackResponse:
-    """Records 👍/👎 feedback on an assistant response."""
-    return submit_feedback(request)
+async def send_feedback(request: FeedbackRequest) -> FeedbackResponse:
+    """Records thumbs up/down feedback on an assistant response."""
+    return await submit_feedback(request)
 
 
 @router.get("/{thread_id}", response_model=list[FeedbackResponse])
-def list_feedback(thread_id: str) -> list[FeedbackResponse]:
+async def list_feedback(thread_id: str) -> list[FeedbackResponse]:
     """Lists all feedback submitted for a given conversation thread."""
-    return get_feedback_for_thread(thread_id)
+    return await get_feedback_for_thread(thread_id)

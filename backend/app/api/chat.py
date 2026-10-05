@@ -25,7 +25,7 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 
 
 @router.post("", response_model=ChatResponse)
-def send_message(request: ChatRequest) -> ChatResponse:
+async def send_message(request: ChatRequest) -> ChatResponse:
     """Send a message to the chatbot and get a reply.
 
     If the response has requires_approval=True, the conversation is
@@ -35,14 +35,14 @@ def send_message(request: ChatRequest) -> ChatResponse:
     globally by the exception handlers registered in main.py — this
     function doesn't need its own try/except for that.
     """
-    return handle_chat_message(request)
+    return await handle_chat_message(request)
 
 
 @router.post("/approve", response_model=ChatResponse)
-def approve_tool_call(approval: ApprovalRequest) -> ChatResponse:
+async def approve_tool_call(approval: ApprovalRequest) -> ChatResponse:
     """Resumes a paused chat after a human approves or rejects a
     pending tool call (see ChatResponse.requires_approval)."""
-    return handle_approval_decision(approval)
+    return await handle_approval_decision(approval)
 
 
 @router.post("/stream")

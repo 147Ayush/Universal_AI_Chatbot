@@ -6,6 +6,7 @@ Responsibilities:
 - build the initial graph state from a validated request
 - invoke the compiled LangGraph workflow
 - convert the graph's output back into a clean response shape
+- persist each turn to Postgres (best-effort, non-blocking)
 
 The API layer (api/chat.py) should never touch the graph directly —
 it only ever calls functions in this file.
@@ -17,6 +18,7 @@ from typing import AsyncGenerator
 
 from langchain_core.messages import HumanMessage
 from langgraph.types import Command
+from sqlalchemy import select
 
 from app.graph.workflow import get_workflow
 from app.llm.base import extract_text
@@ -34,7 +36,44 @@ def _resolve_model_name(provider: str, requested_model: str | None) -> str:
     return get_default_model(provider)
 
 
-def handle_chat_message(request: ChatRequest) -> ChatResponse:
+async def _persist_turn(
+    thread_id: str, provider: str, model_name: str, user_text: str, assistant_text: str
+) -> None:
+    """Writes this turn's user+assistant messages to Postgres.
+
+    Best-effort: logs and returns on any failure (including no database
+    being configured at all) rather than ever blocking or breaking the
+    chat response — persistence is a nice-to-have for history/display,
+    not something the user's actual conversation should depend on.
+    """
+    from app.db.session import AsyncSessionLocal
+    from app.db.models import Conversation, Message
+
+    if AsyncSessionLocal is None:
+        return  # no DATABASE_URL configured — silently skip
+
+    try:
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(select(Conversation).where(Conversation.thread_id == thread_id))
+            convo = result.scalar_one_or_none()
+            if convo is None:
+                convo = Conversation(
+                    thread_id=thread_id,
+                    provider=provider,
+                    model_name=model_name,
+                    title=user_text[:60],
+                )
+                db.add(convo)
+                await db.flush()
+
+            db.add(Message(conversation_id=convo.id, role="user", content=user_text))
+            db.add(Message(conversation_id=convo.id, role="assistant", content=assistant_text))
+            await db.commit()
+    except Exception as e:
+        logger.error("Failed to persist conversation turn: %s", e)
+
+
+async def handle_chat_message(request: ChatRequest) -> ChatResponse:
     """Runs a single chat message through the graph and returns the reply.
 
     If request.thread_id is omitted, a new thread is created and its ID
@@ -44,6 +83,9 @@ def handle_chat_message(request: ChatRequest) -> ChatResponse:
     If the graph pauses for human approval (e.g. before a web search),
     this returns early with requires_approval=True — the caller should
     then call handle_approval_decision() with the user's decision.
+
+    Uses ainvoke() (not invoke()) because the Postgres checkpointer
+    (Module 12) only supports the async interface.
     """
     model_name = _resolve_model_name(request.provider, request.model_name)
     thread_id = request.thread_id or str(uuid.uuid4())
@@ -64,7 +106,7 @@ def handle_chat_message(request: ChatRequest) -> ChatResponse:
         "model_name": model_name,
     }
 
-    result = workflow.invoke(input_state, config=config)
+    result = await workflow.ainvoke(input_state, config=config)
 
     if "__interrupt__" in result:
         interrupt_payload = result["__interrupt__"][0].value
@@ -80,6 +122,8 @@ def handle_chat_message(request: ChatRequest) -> ChatResponse:
     final_message = result["messages"][-1]
     reply_text = extract_text(final_message.content)
 
+    await _persist_turn(thread_id, request.provider, model_name, request.message, reply_text)
+
     return ChatResponse(
         reply=reply_text,
         provider=request.provider,
@@ -88,7 +132,7 @@ def handle_chat_message(request: ChatRequest) -> ChatResponse:
     )
 
 
-def handle_approval_decision(approval: ApprovalRequest) -> ChatResponse:
+async def handle_approval_decision(approval: ApprovalRequest) -> ChatResponse:
     """Resumes a paused conversation after a human approves or rejects
     a pending tool call.
 
@@ -101,7 +145,7 @@ def handle_approval_decision(approval: ApprovalRequest) -> ChatResponse:
     config = {"configurable": {"thread_id": approval.thread_id}}
 
     resume_value = {"approved": approval.approved, "reason": approval.reason}
-    result = workflow.invoke(Command(resume=resume_value), config=config)
+    result = await workflow.ainvoke(Command(resume=resume_value), config=config)
 
     if "__interrupt__" in result:
         # Rare: another approval-requiring tool call happened immediately after
@@ -156,9 +200,14 @@ async def stream_chat_message(request: ChatRequest) -> AsyncGenerator[dict, None
 
     yield {"thread_id": thread_id}
 
+    full_reply = ""
     async for message_chunk, _metadata in workflow.astream(
         input_state, config=config, stream_mode="messages"
     ):
         text = extract_text(message_chunk.content)
         if text:
+            full_reply += text
             yield {"content": text}
+
+    if full_reply:
+        await _persist_turn(thread_id, request.provider, model_name, request.message, full_reply)

@@ -9,19 +9,30 @@ data under a (namespace, key) addressing scheme — e.g. namespace
 ("user_facts", user_id), key "name" — so it's addressable by WHO the
 fact is about, not which conversation it came from.
 
-Like short_term.py, this is in-memory for now (lost on restart).
-Module 12 swaps InMemoryStore for a Postgres-backed store.
+Uses a Postgres-backed store when DATABASE_URL is configured; falls
+back to in-memory otherwise. The real instance is created once in
+main.py's lifespan and registered via set_store().
 """
-
-from functools import lru_cache
 
 from langgraph.store.memory import InMemoryStore
 
+_store = None
 
-@lru_cache
+
+def set_store(store) -> None:
+    """Called once from main.py's lifespan after the real (Postgres)
+    store is opened."""
+    global _store
+    _store = store
+
+
 def get_store():
-    """Returns a cached Store instance (one per process)."""
-    return InMemoryStore()
+    """Returns the active store. Falls back to an in-memory one
+    (lazily created, lost on restart) if none was registered."""
+    global _store
+    if _store is None:
+        _store = InMemoryStore()
+    return _store
 
 
 def save_fact(user_id: str, key: str, value: str) -> None:

@@ -3,24 +3,34 @@
 """
 Short-term (thread-scoped) memory.
 
-Uses LangGraph's checkpointer to persist conversation state per thread_id,
-so a client can send just the NEW message each turn, and the graph
-automatically has access to everything said earlier in that thread.
-"""
+Uses a Postgres-backed checkpointer when DATABASE_URL is configured
+(persists across restarts, works with multiple workers). Falls back to
+in-memory if no database is configured, so the app still runs without
+Postgres during quick local testing.
 
-from functools import lru_cache
+The real Postgres checkpointer instance is created once in main.py's
+lifespan (it needs an open async connection for the app's whole
+lifetime) and registered here via set_checkpointer().
+"""
 
 from langgraph.checkpoint.memory import InMemorySaver
 
+_checkpointer = None
 
-@lru_cache
+
+def set_checkpointer(checkpointer) -> None:
+    """Called once from main.py's lifespan after the real (Postgres)
+    checkpointer is opened."""
+    global _checkpointer
+    _checkpointer = checkpointer
+
+
 def get_checkpointer():
-    """Returns a cached checkpointer instance (one per process).
-
-    IMPORTANT: InMemorySaver stores everything in RAM. All conversation
-    history is lost when the server restarts, and it won't work correctly
-    across multiple server workers/instances. This is fine for development.
-    Module 12 replaces this with a PostgreSQL-backed checkpointer so
-    history survives restarts and works in a real multi-worker deployment.
-    """
-    return InMemorySaver()
+    """Returns the active checkpointer. Falls back to an in-memory one
+    (lazily created, lost on restart) if none was registered — e.g. when
+    DATABASE_URL isn't configured, or in a script run outside the app's
+    lifespan (like a verify_*.py test script)."""
+    global _checkpointer
+    if _checkpointer is None:
+        _checkpointer = InMemorySaver()
+    return _checkpointer

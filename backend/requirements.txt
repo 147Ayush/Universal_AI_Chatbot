@@ -1,0 +1,38 @@
+# --- Web framework ---
+fastapi
+uvicorn[standard]
+python-multipart
+
+# --- Validation / settings ---
+pydantic>=2
+pydantic-settings
+
+# --- LangChain / LangGraph ---
+langchain
+langgraph
+langgraph-checkpoint
+
+# --- LLM providers ---
+langchain-openai
+langchain-groq
+langchain-google-genai
+
+# --- MCP ---
+mcp
+langchain-mcp-adapters
+
+# --- Tools ---
+ddgs
+httpx
+
+# --- Database / Persistence (Module 12) ---
+sqlalchemy[asyncio]
+asyncpg
+alembic
+langgraph-checkpoint-postgres
+psycopg[binary]
+
+# --- Testing ---
+pytest
+pytest-asyncio
+pytest-mock

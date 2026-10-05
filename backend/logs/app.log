@@ -179,3 +179,55 @@
 2026-10-03 17:15:44 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
 2026-10-03 17:22:29 | INFO     | app.services.feedback_service | Feedback recorded: id=dcd22630-b977-4ee7-ae6f-f0b98ad466a1 thread_id=test-thread-123 rating=up
 2026-10-03 17:22:29 | INFO     | app.services.feedback_service | Feedback recorded: id=5215e8f6-556b-4d31-8e0f-ee603c8f66af thread_id=test-thread-123 rating=down
+2026-10-03 17:23:31 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-03 17:23:33 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-03 17:23:36 | INFO     | app.services.feedback_service | Feedback recorded: id=bb45acd8-d960-4830-9f1e-4ee5425ee20b thread_id=abc123 rating=up
+2026-10-03 17:23:58 | INFO     | app.services.feedback_service | Feedback recorded: id=56df2084-da76-4a14-abf8-a98d4c4aa454 thread_id=abc123 rating=up
+2026-10-03 17:24:48 | INFO     | app.main | Universal AI Chatbot shutting down
+2026-10-03 17:31:29 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-03 17:31:31 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-04 19:17:20 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-04 19:17:24 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-05 14:09:14 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-05 14:09:16 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-05 14:09:17 | INFO     | app.main | Using PostgreSQL for short-term and long-term memory
+2026-10-05 14:13:18 | INFO     | app.main | Universal AI Chatbot shutting down
+2026-10-05 14:13:24 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-05 14:13:25 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-05 14:13:25 | INFO     | app.main | Using PostgreSQL for short-term and long-term memory
+2026-10-05 14:13:34 | INFO     | app.main | Universal AI Chatbot shutting down
+2026-10-05 14:13:40 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-05 14:13:42 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-05 14:13:42 | INFO     | app.main | Using PostgreSQL for short-term and long-term memory
+2026-10-05 14:13:47 | INFO     | app.main | Universal AI Chatbot shutting down
+2026-10-05 14:13:57 | INFO     | app.main | Universal AI Chatbot v0.1.0 starting up | env=development
+2026-10-05 14:13:58 | INFO     | app.mcp.tool_manager | Loaded 6 MCP tools: ['mcp_add', 'mcp_subtract', 'mcp_multiply', 'mcp_divide', 'mcp_get_weather', 'mcp_web_search']
+2026-10-05 14:13:59 | INFO     | app.main | Using PostgreSQL for short-term and long-term memory
+2026-10-05 14:14:24 | INFO     | app.services.chat_service | stream_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=91420b90-3dac-4e81-ad71-6a5a0c893f95
+2026-10-05 14:14:24 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:14:25 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:14:25 | WARNING  | app.utils.retry | Attempt 1/2 failed (Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}), retrying in 1.0s...
+2026-10-05 14:14:26 | ERROR    | app.utils.retry | Exhausted 2 retries. Last error: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:14:26 | ERROR    | app.llm.factory | Provider 'groq' failed after retries: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:14:27 | INFO     | app.llm.factory | Trying provider=openai model=gpt-4o-mini
+2026-10-05 14:14:31 | INFO     | httpx2 | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-10-05 14:14:31 | WARNING  | app.llm.factory | Primary provider 'groq' failed — succeeded via fallback provider 'openai'
+2026-10-05 14:15:08 | INFO     | app.services.chat_service | stream_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=91420b90-3dac-4e81-ad71-6a5a0c893f95
+2026-10-05 14:15:08 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:15:09 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:15:09 | WARNING  | app.utils.retry | Attempt 1/2 failed (Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}), retrying in 1.0s...
+2026-10-05 14:15:10 | ERROR    | app.utils.retry | Exhausted 2 retries. Last error: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:15:10 | ERROR    | app.llm.factory | Provider 'groq' failed after retries: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:15:10 | INFO     | app.llm.factory | Trying provider=openai model=gpt-4o-mini
+2026-10-05 14:15:12 | INFO     | httpx2 | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-10-05 14:15:13 | WARNING  | app.llm.factory | Primary provider 'groq' failed — succeeded via fallback provider 'openai'
+2026-10-05 14:15:50 | INFO     | app.services.chat_service | stream_chat_message: provider=groq model=openai/gpt-oss-20b thread_id=b489a349-4912-46c0-a2d8-afd9ad685324
+2026-10-05 14:15:50 | INFO     | app.graph.nodes | call_llm node: provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:15:51 | INFO     | app.llm.factory | Trying provider=groq model=openai/gpt-oss-20b
+2026-10-05 14:15:51 | WARNING  | app.utils.retry | Attempt 1/2 failed (Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}), retrying in 1.0s...
+2026-10-05 14:15:52 | ERROR    | app.utils.retry | Exhausted 2 retries. Last error: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:15:52 | ERROR    | app.llm.factory | Provider 'groq' failed after retries: Error code: 403 - {'error': {'message': 'Access denied. Please check your network settings.'}}
+2026-10-05 14:15:52 | INFO     | app.llm.factory | Trying provider=openai model=gpt-4o-mini
+2026-10-05 14:15:54 | INFO     | httpx2 | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2026-10-05 14:15:54 | WARNING  | app.llm.factory | Primary provider 'groq' failed — succeeded via fallback provider 'openai'
+2026-10-05 14:20:50 | INFO     | app.main | Universal AI Chatbot shutting down
