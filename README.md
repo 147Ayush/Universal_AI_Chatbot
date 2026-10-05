@@ -581,7 +581,7 @@ When adding code, please keep to the layering rule: **API → service → graph 
 
 ## 📄 License
 
-Add your license here (for example MIT) and include a `LICENSE` file in the repository root.
+MIT
 
 ---
 
